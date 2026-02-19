@@ -52,7 +52,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         setSearch("");
         setExercises(searchedExercises);
       } else {
-        console.error('Failed to fetch exercises for search');
+        console.error("Failed to fetch exercises for search");
         setExercises([]);
       }
     }
