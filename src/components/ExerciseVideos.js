@@ -45,33 +45,48 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
         flexWrap="wrap"
         alignItems="center"
       >
-        {exerciseVideos?.slice(0, 3)?.map((item, index) => (
-          <a
-            key={index}
-            className="exercise-video"
-            href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              style={{ borderTopLeftRadius: "20px" }}
-              src={item.video.thumbnails[0].url}
-              alt={item.video.title}
-            />
-            <Box>
-              <Typography
-                sx={{ fontSize: { lg: "28px", xs: "18px" } }}
-                fontWeight={600}
-                color="#000"
-              >
-                {item.video.title}
-              </Typography>
-              <Typography fontSize="14px" color="#000">
-                {item.video.channelName}
-              </Typography>
-            </Box>
-          </a>
-        ))}
+        {exerciseVideos?.slice(0, 3)?.map((item, index) => {
+          // Safety checks for nested data
+          if (!item || !item.video) return null;
+
+          const videoId = item.video.videoId;
+          const thumbnailUrl = item.video.thumbnails?.[0]?.url;
+          const videoTitle = item.video.title || "No title";
+          const channelName = item.video.channelName || "Unknown channel";
+
+          if (!videoId || !thumbnailUrl) return null;
+
+          return (
+            <a
+              key={index}
+              className="exercise-video"
+              href={`https://www.youtube.com/watch?v=${videoId}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                style={{ borderTopLeftRadius: "20px" }}
+                src={thumbnailUrl}
+                alt={videoTitle}
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+              <Box>
+                <Typography
+                  sx={{ fontSize: { lg: "28px", xs: "18px" } }}
+                  fontWeight={600}
+                  color="#000"
+                >
+                  {videoTitle}
+                </Typography>
+                <Typography fontSize="14px" color="#000">
+                  {channelName}
+                </Typography>
+              </Box>
+            </a>
+          );
+        })}
       </Stack>
     </Box>
   );
