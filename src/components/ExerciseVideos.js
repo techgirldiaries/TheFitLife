@@ -58,7 +58,7 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
 
           return (
             <a
-              key={index}
+              key={videoId}
               className="exercise-video"
               href={`https://www.youtube.com/watch?v=${videoId}`}
               target="_blank"

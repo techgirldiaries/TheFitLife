@@ -10,14 +10,17 @@ const Detail = ({ exerciseDetail }) => {
 
   const extraDetail = [
     {
+      id: "bodyPart",
       icon: BodyPartImage,
       name: bodyPart,
     },
     {
+      id: "target",
       icon: TargetImage,
       name: target,
     },
     {
+      id: "equipment",
       icon: EquipmentImage,
       name: equipment,
     },
@@ -56,7 +59,7 @@ const Detail = ({ exerciseDetail }) => {
           improve your <br /> mood and gain energy.
         </Typography>
         {extraDetail?.map((item) => (
-          <Stack key={item.name} direction="row" gap="24px" alignItems="center">
+          <Stack key={item.id} direction="row" gap="24px" alignItems="center">
             <Button
               sx={{
                 background: "#FFF2DB",
@@ -67,7 +70,7 @@ const Detail = ({ exerciseDetail }) => {
             >
               <img
                 src={item.icon}
-                alt={bodyPart}
+                alt={item.name}
                 style={{ width: "50px", height: "50px" }}
               />
             </Button>
