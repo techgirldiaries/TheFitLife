@@ -15,8 +15,26 @@ export const youtubeOptions = {
 };
 
 export const fetchData = async (url, options) => {
-  const res = await fetch(url, options);
-  const data = await res.json();
+  try {
+    console.log("Fetching:", url);
+    const res = await fetch(url, options);
 
-  return data;
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("API Error:", res.status, res.statusText, errorText);
+      return null;
+    }
+
+    const data = await res.json();
+    console.log(
+      "API Success:",
+      url,
+      "Data length:",
+      Array.isArray(data) ? data.length : "N/A",
+    );
+    return data;
+  } catch (error) {
+    console.error("Fetch Error:", error, "URL:", url);
+    return null;
+  }
 };
