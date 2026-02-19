@@ -6,7 +6,8 @@ import TargetImage from "../assets/icons/target.png";
 import EquipmentImage from "../assets/icons/equipment.png";
 
 const Detail = ({ exerciseDetail }) => {
-  const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
+  const { bodyPart, gifUrl, name, target, equipment, id } = exerciseDetail;
+  const [imageError, setImageError] = React.useState(false);
 
   const extraDetail = [
     {
@@ -31,16 +32,59 @@ const Detail = ({ exerciseDetail }) => {
       gap="60px"
       sx={{ flexDirection: { lg: "row" }, p: "20px", alignItems: "center" }}
     >
-      <img
-        src={gifUrl}
-        alt={name}
-        loading="lazy"
-        className="detail-image"
-        onError={(e) => {
-          console.error("Failed to load exercise detail image:", gifUrl);
-          e.target.style.backgroundColor = "#f0f0f0";
-        }}
-      />
+      {imageError ? (
+        <Stack
+          sx={{
+            width: { lg: "744px", xs: "100%" },
+            height: { lg: "744px", xs: "400px" },
+            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            borderRadius: "20px",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "40px",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "#fff",
+              fontSize: { lg: "48px", xs: "32px" },
+              fontWeight: "bold",
+              textAlign: "center",
+              textTransform: "capitalize",
+              mb: 3,
+            }}
+          >
+            {name}
+          </Typography>
+          <Typography
+            sx={{
+              color: "rgba(255,255,255,0.9)",
+              fontSize: { lg: "24px", xs: "18px" },
+              textAlign: "center",
+              mb: 2,
+            }}
+          >
+            Target: {target}
+          </Typography>
+          <Typography
+            sx={{
+              color: "rgba(255,255,255,0.8)",
+              fontSize: { lg: "20px", xs: "16px" },
+              textAlign: "center",
+            }}
+          >
+            Body Part: {bodyPart} • Equipment: {equipment}
+          </Typography>
+        </Stack>
+      ) : (
+        <img
+          src={gifUrl || `https://v2.exercisedb.io/image/${id}`}
+          alt={name}
+          loading="lazy"
+          className="detail-image"
+          onError={() => setImageError(true)}
+        />
+      )}
       <Stack sx={{ gap: { lg: "35px", xs: "20px" } }}>
         <Typography
           sx={{ fontSize: { lg: "64px", xs: "30px" } }}

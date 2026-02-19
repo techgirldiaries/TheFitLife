@@ -18,9 +18,30 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
           </span>{" "}
           exercise videos
         </Typography>
-        <Typography sx={{ fontSize: { lg: "20px", xs: "16px" } }} color="#666">
-          No videos available at the moment.
-        </Typography>
+        <Box
+          sx={{
+            backgroundColor: "#f5f5f5",
+            borderRadius: "12px",
+            padding: "24px",
+            maxWidth: "600px",
+          }}
+        >
+          <Typography
+            sx={{ fontSize: { lg: "20px", xs: "16px" } }}
+            color="#333"
+            mb="12px"
+            fontWeight={600}
+          >
+            📹 Video Feature Unavailable
+          </Typography>
+          <Typography
+            sx={{ fontSize: { lg: "16px", xs: "14px" } }}
+            color="#666"
+          >
+            Exercise videos require a premium API plan. Upgrade your RapidAPI
+            subscription to access YouTube workout demonstrations.
+          </Typography>
+        </Box>
       </Box>
     );
   }
