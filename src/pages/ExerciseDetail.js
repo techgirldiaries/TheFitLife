@@ -33,9 +33,13 @@ const ExerciseDetail = () => {
           `${youtubeSearchUrl}/search?query=${exerciseDetailData.name} exercise`,
           youtubeOptions,
         );
+        console.log('YouTube API Response:', exerciseVideosData);
+        
         if (exerciseVideosData && exerciseVideosData.contents) {
+          console.log('Setting videos:', exerciseVideosData.contents.length);
           setExerciseVideos(exerciseVideosData.contents);
         } else {
+          console.warn('No video contents found in response');
           setExerciseVideos([]);
         }
 

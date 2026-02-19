@@ -34,22 +34,27 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises",
+        "https://exercisedb.p.rapidapi.com/exercises?limit=1000",
         exerciseOptions,
       );
 
-      const searchedExercises = exercisesData.filter(
-        (item) =>
-          item.name.toLowerCase().includes(search) ||
-          item.target.toLowerCase().includes(search) ||
-          item.equipment.toLowerCase().includes(search) ||
-          item.bodyPart.toLowerCase().includes(search),
-      );
+      if (exercisesData && Array.isArray(exercisesData)) {
+        const searchedExercises = exercisesData.filter(
+          (item) =>
+            item.name.toLowerCase().includes(search) ||
+            item.target.toLowerCase().includes(search) ||
+            item.equipment.toLowerCase().includes(search) ||
+            item.bodyPart.toLowerCase().includes(search),
+        );
 
-      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
+        window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
 
-      setSearch("");
-      setExercises(searchedExercises);
+        setSearch("");
+        setExercises(searchedExercises);
+      } else {
+        console.error('Failed to fetch exercises for search');
+        setExercises([]);
+      }
     }
   };
 
